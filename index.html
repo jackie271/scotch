@@ -3,109 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LSSSD // Intelligence Matrix</title>
+    <title>LSSSD // Major Crimes Bureau</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="matrix-board">
+    <div class="board-container">
 
-        <!-- COLOANA 1: TRANSNATIONAL -->
-        <div class="matrix-column col-narrow">
-            <div class="section-header">01. TRANSNATIONAL</div>
-            
+        <!-- COLOANA 1: 01. TRANSNATIONAL -->
+        <div class="column col-transnational">
+            <div class="sec-header">01. TRANSNATIONAL</div>
+
             <div class="card">
                 <div class="badge badge-blue">LOGISTICS</div>
-                <div class="img-box no-data">[ NO VISUAL DATA ]</div>
-                <div class="card-body">
-                    <div class="name">BRIAN CAHILL</div>
-                    <div class="meta">AKA: Foreman<br>LKA: Ireland</div>
+                <div class="img-container no-img">
+                    <span>[ NO VISUAL DATA ]</span>
+                    <span class="sys-tag">SYS.IMG.RGC</span>
+                </div>
+                <div class="card-info">
+                    <div class="c-name">BRIAN CAHILL</div>
+                    <div class="c-meta">AKA: Foreman<br>LKA: Ireland</div>
                 </div>
             </div>
 
             <div class="card">
                 <div class="badge badge-blue">FINANCER</div>
-                <div class="img-box">
+                <div class="img-container">
                     <img src="https://www.upload.ee/image/19448151/Screenshot_2026-06-14_180609.png" alt="Conor Molloy">
                 </div>
-                <div class="card-body">
-                    <div class="name">CONOR MOLLOY</div>
-                    <div class="meta">AKA: Enforcer<br><span class="txt-red">Status: Wanted</span></div>
+                <div class="card-info">
+                    <div class="c-name">CONOR MOLLOY</div>
+                    <div class="c-meta">AKA: Enforcer<br><span class="txt-red">Status: Wanted</span></div>
                 </div>
             </div>
 
             <div class="card">
                 <div class="badge badge-blue">LIAISON</div>
-                <div class="img-box">
+                <div class="img-container">
                     <img src="https://www.upload.ee/image/19448152/Screenshot_2026-06-14_180624.png" alt="Andrew Kernohan">
                 </div>
-                <div class="card-body">
-                    <div class="name">ANDREW KERNOHAN</div>
-                    <div class="meta">AKA: Kerny<br>LKA: International</div>
+                <div class="card-info">
+                    <div class="c-name">ANDREW KERNOHAN</div>
+                    <div class="c-meta">AKA: Kerny<br>LKA: International</div>
                 </div>
             </div>
         </div>
 
-        <!-- COLOANA 2: LOCAL STRUCTURE (BAY CITY) -->
-        <div class="matrix-column col-wide">
-            <div class="section-header">02. LOCAL STRUCTURE (BAY CITY)</div>
+        <!-- COLOANA 2: 02. LOCAL STRUCTURE (BAY CITY) -->
+        <div class="column col-structure">
+            <div class="sec-header">02. LOCAL STRUCTURE (BAY CITY)</div>
 
-            <!-- APEX / TOP LEVEL -->
-            <div class="tree-level level-top">
-                <div class="card">
+            <!-- APEX -->
+            <div class="row-center">
+                <div class="card card-apex">
                     <div class="badge badge-red">STATE LIAISON / APEX</div>
-                    <div class="img-box">
+                    <div class="img-container">
                         <img src="https://www.upload.ee/image/18271271/Screenshot_2025-06-09_185712.png" alt="Dennis Moran">
+                        <span class="sys-tag">SYS.IMG.RGC</span>
                     </div>
-                    <div class="card-body">
-                        <div class="name">DENNIS MORAN</div>
-                        <div class="meta">AKA: Big Mo</div>
-                        <div class="desc">Running the Bay City Mob since 2016. Main operational pipeline into international channels.</div>
+                    <div class="card-info">
+                        <div class="c-name">DENNIS MORAN</div>
+                        <div class="c-meta">AKA: Big Mo</div>
+                        <div class="c-desc">Running the Bay City Mob since 2016. Main operational pipeline into international channels.</div>
                     </div>
                 </div>
             </div>
 
-            <!-- MID LEVEL (STREET BOSS + ADVISOR) -->
-            <div class="tree-level level-mid">
-                <div class="card">
-                    <div class="badge badge-pink">STREET BOSS</div>
-                    <div class="img-box">
+            <!-- MID LEVEL -->
+            <div class="row-mid">
+                <div class="card card-mid">
+                    <div class="badge badge-magenta">STREET BOSS</div>
+                    <div class="img-container">
                         <img src="https://www.upload.ee/image/19448150/Screenshot_2026-06-15_181827.png" alt="Brennan Connors">
+                        <span class="sys-tag">SYS.IMG.RGC</span>
                     </div>
-                    <div class="card-body">
-                        <div class="name">BRENNAN CONNORS</div>
-                        <div class="desc">Leadership figure as of 2026.</div>
+                    <div class="card-info">
+                        <div class="c-name">BRENNAN CONNORS</div>
+                        <div class="c-desc">Leadership figure as of 2026.</div>
                     </div>
                 </div>
 
-                <div class="card">
+                <div class="card card-mid">
                     <div class="badge badge-orange">ADVISOR</div>
-                    <div class="img-box no-data">[ NO VISUAL DATA ]</div>
-                    <div class="card-body">
-                        <div class="name">JOE TULSA</div>
-                        <div class="desc">General advisor to state-side leadership.</div>
+                    <div class="img-container no-img">
+                        <span>[ NO VISUAL DATA ]</span>
+                        <span class="sys-tag">SYS.IMG.RGC</span>
+                    </div>
+                    <div class="card-info">
+                        <div class="c-name">JOE TULSA</div>
+                        <div class="c-desc">General advisor to state-side leadership.</div>
                     </div>
                 </div>
             </div>
 
             <!-- BOTTOM LEVEL (LIEUTENANTS & CREWS) -->
-            <div class="tree-level level-bottom">
+            <div class="row-bottom">
                 
                 <!-- Sub-Col 1 -->
-                <div class="sub-col">
-                    <div class="card">
+                <div class="sub-group">
+                    <div class="card card-sub">
                         <div class="badge badge-green">LIEUTENANT</div>
-                        <div class="img-box">
+                        <div class="img-container">
                             <img src="https://www.upload.ee/image/19444980/image.png" alt="Patrick Quinn">
+                            <span class="sys-tag">SYS.IMG.RGC</span>
                         </div>
-                        <div class="card-body">
-                            <div class="name">PATRICK QUINN</div>
-                            <div class="meta">AKA: Wiz<br>Running city operations as of 2026.</div>
+                        <div class="card-info">
+                            <div class="c-name">PATRICK QUINN</div>
+                            <div class="c-desc">AKA: Wiz<br>Running city operations as of 2026.</div>
                         </div>
                     </div>
 
                     <div class="crew-box">
-                        <div class="crew-title">IMPACT 51</div>
+                        <div class="crew-head">IMPACT 51</div>
                         <div class="crew-sub">KNOWN MEMBERS</div>
                         <ul><li>Oisin McGeady</li></ul>
                         <div class="crew-sub">KNOWN ASSOCIATES</div>
@@ -118,10 +127,10 @@
                     </div>
 
                     <div class="crew-box">
-                        <div class="crew-title">BAY CITY CREW</div>
+                        <div class="crew-head">BAY CITY CREW</div>
                         <div class="crew-sub">KNOWN MEMBERS</div>
                         <ul>
-                            <li class="txt-struck">X James McLeod</li>
+                            <li class="txt-strike">X James McLeod</li>
                             <li>Adrian Donegan</li>
                         </ul>
                         <div class="crew-sub">KNOWN ASSOCIATES</div>
@@ -133,21 +142,24 @@
                 </div>
 
                 <!-- Sub-Col 2 -->
-                <div class="sub-col">
-                    <div class="card">
+                <div class="sub-group">
+                    <div class="card card-sub">
                         <div class="badge badge-green">ACTING LT</div>
-                        <div class="img-box no-data">[ NO VISUAL DATA ]</div>
-                        <div class="card-body">
-                            <div class="name">TRAVIS BOYD</div>
-                            <div class="desc">Expanding operations into the county regions.</div>
+                        <div class="img-container no-img">
+                            <span>[ NO VISUAL DATA ]</span>
+                            <span class="sys-tag">SYS.IMG.RGC</span>
+                        </div>
+                        <div class="card-info">
+                            <div class="c-name">TRAVIS BOYD</div>
+                            <div class="c-desc">Expanding operations into the county regions.</div>
                         </div>
                     </div>
 
                     <div class="crew-box">
-                        <div class="crew-title">NORTH COUNTY</div>
+                        <div class="crew-head">NORTH COUNTY</div>
                         <div class="crew-sub">KNOWN MEMBERS</div>
                         <ul>
-                            <li class="txt-struck">X Martin Farley</li>
+                            <li class="txt-strike">X Martin Farley</li>
                             <li>Seamus Breen</li>
                         </ul>
                         <div class="crew-sub">KNOWN ASSOCIATES</div>
@@ -159,18 +171,20 @@
                 </div>
 
                 <!-- Sub-Col 3 -->
-                <div class="sub-col">
-                    <div class="card card-archived">
+                <div class="sub-group">
+                    <div class="card card-sub card-greyed">
                         <div class="badge badge-grey">LIEUTENANT</div>
-                        <div class="img-box no-data">[ ARCHIVED ]</div>
-                        <div class="card-body">
-                            <div class="name txt-grey">ANJAWON FULLER</div>
-                            <div class="desc txt-grey">Track archived / Suspended ops.</div>
+                        <div class="img-container no-img">
+                            <span>[ ARCHIVED ]</span>
+                        </div>
+                        <div class="card-info">
+                            <div class="c-name txt-dim">ANJAWON FULLER</div>
+                            <div class="c-desc txt-dim">Track archived / Suspended ops.</div>
                         </div>
                     </div>
 
-                    <div class="crew-box crew-archived">
-                        <div class="crew-title txt-struck">BLACK CROWN</div>
+                    <div class="crew-box crew-greyed">
+                        <div class="crew-head txt-strike">BLACK CROWN</div>
                         <div class="crew-sub">KNOWN MEMBERS</div>
                         <ul>
                             <li>Ryan Murphy</li>
@@ -186,60 +200,52 @@
             </div>
         </div>
 
-        <!-- COLOANA 3: BUSINESS FRONTS & CASUALTY LOG -->
-        <div class="matrix-column col-narrow">
+        <!-- COLOANA 3: 03. BUSINESS FRONTS & 04. CASUALTY LOG -->
+        <div class="column col-right">
             
-            <div class="section-header">03. BUSINESS FRONTS</div>
+            <div class="sec-header">03. BUSINESS FRONTS</div>
 
             <div class="card card-front">
-                <div class="card-body">
-                    <div class="name">DONALEIGH'S PUB</div>
-                    <div class="tag-box">BAY CITY CREW FRONT</div>
-                    <div class="img-box front-img">
-                        <img src="https://www.upload.ee/image/19448264/Screenshot_2026-06-15_200111.png" alt="Pub">
-                    </div>
+                <div class="c-name">DONALEIGH'S PUB</div>
+                <div class="front-tag">BAY CITY CREW FRONT</div>
+                <div class="img-container front-img">
+                    <img src="https://www.upload.ee/image/19448264/Screenshot_2026-06-15_200111.png" alt="Pub">
                 </div>
             </div>
 
             <div class="card card-front">
-                <div class="card-body">
-                    <div class="name">AUNTIE P'S</div>
-                    <div class="tag-box">IMPACT 51 FRONT</div>
-                    <div class="img-box front-img">
-                        <img src="https://www.upload.ee/image/19448266/Screenshot_2026-06-15_200330.png" alt="Auntie P's">
-                    </div>
+                <div class="c-name">AUNTIE P'S</div>
+                <div class="front-tag">IMPACT 51 FRONT</div>
+                <div class="img-container front-img">
+                    <img src="https://www.upload.ee/image/19448266/Screenshot_2026-06-15_200330.png" alt="Auntie P's">
                 </div>
             </div>
 
             <div class="card card-front">
-                <div class="card-body">
-                    <div class="name">PACIFIC COAST CONCRETE</div>
-                    <div class="tag-box">NORTH COUNTY FRONT</div>
-                    <div class="img-box no-data front-img">[ PENDING ASSET ]</div>
+                <div class="c-name">PACIFIC COAST CONCRETE</div>
+                <div class="front-tag">NORTH COUNTY FRONT</div>
+                <div class="img-container front-img no-img">
+                    <span>[ PENDING ASSET ]</span>
                 </div>
             </div>
 
-            <div class="card card-front card-archived">
-                <div class="card-body">
-                    <div class="name txt-grey">BLACK CROWN FRONT</div>
-                    <div class="tag-box">INACTIVE</div>
-                </div>
+            <div class="card card-front card-greyed">
+                <div class="c-name txt-dim">BLACK CROWN FRONT</div>
+                <div class="front-tag">INACTIVE</div>
             </div>
 
-            <div class="section-header mt-20">04. CASUALTY LOG</div>
+            <div class="sec-header mt-15">04. CASUALTY LOG</div>
 
-            <div class="card card-log">
-                <div class="card-body">
-                    <div class="name txt-yellow">JAMES MCLEOD</div>
-                    <div class="desc txt-yellow">CONFIDENTIAL INFORMANT<br><span class="txt-sub">Active since 2025.</span></div>
-                </div>
+            <div class="card log-yellow">
+                <div class="c-name txt-yellow">JAMES MCLEOD</div>
+                <div class="c-desc txt-yellow">CONFIDENTIAL INFORMANT</div>
+                <div class="c-sub txt-yellow">Active since 2025.</div>
             </div>
 
-            <div class="card card-log">
-                <div class="card-body">
-                    <div class="name txt-red">JOEL LEVIN</div>
-                    <div class="desc txt-red">DECEASED // 187 PC<br><span class="txt-sub">Case sealed. Found within local county lines.</span></div>
-                </div>
+            <div class="card log-red">
+                <div class="c-name txt-red">JOEL LEVIN</div>
+                <div class="c-desc txt-red">DECEASED // 187 PC</div>
+                <div class="c-sub txt-sub">Case sealed. Found within local county lines.</div>
             </div>
 
         </div>
