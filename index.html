@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LSSSD // Intelligence Matrix</title>
+    <title>LSSSD // Major Crimes Bureau</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,59 +11,222 @@
     <header class="matrix-header">
         <div>
             <h1>LSSSD // Major Crimes Bureau</h1>
-            <p>Intelligence Matrix: Operations Hierarchy</p>
+            <p class="subtitle">Intelligence Matrix: Operations Hierarchy</p>
         </div>
         <div class="confidential-tag">CONFIDENTIAL / LAW ENFORCEMENT SENSITIVE</div>
     </header>
 
     <main class="matrix-container">
 
-        <!-- Nivelul 1: Conducerea -->
-        <section class="section">
-            <h2 class="section-title">01. Executive / Apex</h2>
-            <div class="grid-row">
-                
-                <div class="card">
-                    <span class="role">Street Boss</span>
-                    <div class="img-box">
-                        <img src="https://via.placeholder.com/100" alt="Avatar">
-                    </div>
-                    <div class="details">
-                        <h3>Dennis Moran</h3>
-                        <p class="aka">AKA: Big Mo</p>
-                        <p class="status-wanted">Status: Wanted</p>
-                    </div>
+        <!-- 01. Transnational -->
+        <h2 class="section-title">01. Transnational</h2>
+        <div class="grid-3">
+            <div class="card">
+                <div class="role">Logistics</div>
+                <div class="img-box no-data">[ NO VISUAL DATA ]</div>
+                <div class="details">
+                    <div class="name">Brian Cahill</div>
+                    <div class="sub-text">AKA: Foreman<br>LKA: Ireland</div>
                 </div>
-
-                <div class="card">
-                    <span class="role">Liaison</span>
-                    <div class="img-box">
-                        <div class="no-data">[ NO VISUAL DATA ]</div>
-                    </div>
-                    <div class="details">
-                        <h3>Brian Cahill</h3>
-                        <p class="aka">AKA: Foreman</p>
-                        <p>LKA: Ireland</p>
-                    </div>
-                </div>
-
             </div>
-        </section>
 
-        <!-- Nivelul 2: Grupurile / Echipele -->
-        <section class="section">
-            <h2 class="section-title">02. Known Crews</h2>
-            <div class="grid-row">
-                <div class="card crew-box">
-                    <h3>Bay City Crew</h3>
-                    <p class="crew-label">Membri Cunoscuți:</p>
+            <div class="card">
+                <div class="role">Financer</div>
+                <div class="img-box">
+                    <img src="https://www.upload.ee/image/19448151/Screenshot_2026-06-14_180609.png" alt="Conor Molloy">
+                </div>
+                <div class="details">
+                    <div class="name">Conor Molloy</div>
+                    <div class="sub-text">AKA: Enforcer<br><span class="alert-red">Status: Wanted</span></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="role">Liaison</div>
+                <div class="img-box">
+                    <img src="https://www.upload.ee/image/19448152/Screenshot_2026-06-14_180624.png" alt="Andrew Kernohan">
+                </div>
+                <div class="details">
+                    <div class="name">Andrew Kernohan</div>
+                    <div class="sub-text">AKA: Kerny<br>LKA: International</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 02. Local Structure -->
+        <h2 class="section-title">02. Local Structure (Bay City)</h2>
+
+        <div class="center-row">
+            <div class="card wide-card">
+                <div class="role">State Liaison / Apex</div>
+                <div class="img-box">
+                    <img src="https://www.upload.ee/image/18271271/Screenshot_2025-06-09_185712.png" alt="Dennis Moran">
+                </div>
+                <div class="details">
+                    <div class="name">Dennis Moran</div>
+                    <div class="sub-text">AKA: Big Mo</div>
+                    <div class="desc">Running the Bay City Mob since 2016. Main operational pipeline into international channels.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <div class="card">
+                <div class="role">Street Boss</div>
+                <div class="img-box">
+                    <img src="https://www.upload.ee/image/19448150/Screenshot_2026-06-15_181827.png" alt="Brennan Connors">
+                </div>
+                <div class="details">
+                    <div class="name">Brennan Connors</div>
+                    <div class="desc">Leadership figure as of 2026.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="role">Advisor</div>
+                <div class="img-box no-data">[ NO VISUAL DATA ]</div>
+                <div class="details">
+                    <div class="name">Joe Tulsa</div>
+                    <div class="desc">General advisor to state-side leadership.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lieutenants & Crews Layout -->
+        <div class="grid-3 mt-20">
+            <!-- Column 1 -->
+            <div class="column-group">
+                <div class="card">
+                    <div class="role">Lieutenant</div>
+                    <div class="img-box">
+                        <img src="https://www.upload.ee/image/19444980/image.png" alt="Patrick Quinn">
+                    </div>
+                    <div class="details">
+                        <div class="name">Patrick Quinn</div>
+                        <div class="desc">AKA: Wiz<br>Running city operations as of 2026.</div>
+                    </div>
+                </div>
+                <div class="crew-box">
+                    <div class="crew-name">Impact 51</div>
+                    <div class="crew-label">Known Members</div>
+                    <ul><li>Oisin McGeady</li></ul>
+                    <div class="crew-label">Known Associates</div>
+                    <ul>
+                        <li>Aidan Gilmore</li>
+                        <li>Michal Murrily</li>
+                        <li>Shane McGrath</li>
+                        <li>Rian Morris</li>
+                    </ul>
+                </div>
+                <div class="crew-box">
+                    <div class="crew-name">Bay City Crew</div>
+                    <div class="crew-label">Known Members</div>
                     <ul>
                         <li>James McLeod</li>
                         <li>Adrian Donegan</li>
                     </ul>
+                    <div class="crew-label">Known Associates</div>
+                    <ul>
+                        <li>Dominic Hogan</li>
+                        <li>Ian Keogh</li>
+                    </ul>
                 </div>
             </div>
-        </section>
+
+            <!-- Column 2 -->
+            <div class="column-group">
+                <div class="card">
+                    <div class="role">Acting LT</div>
+                    <div class="img-box no-data">[ NO VISUAL DATA ]</div>
+                    <div class="details">
+                        <div class="name">Travis Boyd</div>
+                        <div class="desc">Expanding operations into the county regions.</div>
+                    </div>
+                </div>
+                <div class="crew-box">
+                    <div class="crew-name">North County</div>
+                    <div class="crew-label">Known Members</div>
+                    <ul>
+                        <li>Martin Farley</li>
+                        <li>Seamus Breen</li>
+                    </ul>
+                    <div class="crew-label">Known Associates</div>
+                    <ul>
+                        <li>Peter Lanagan</li>
+                        <li>Owen Duffy</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Column 3 -->
+            <div class="column-group">
+                <div class="card">
+                    <div class="role">Lieutenant</div>
+                    <div class="img-box no-data">[ ARCHIVED ]</div>
+                    <div class="details">
+                        <div class="name">Anjawon Fuller</div>
+                        <div class="desc">Track archived / Suspended ops.</div>
+                    </div>
+                </div>
+                <div class="crew-box">
+                    <div class="crew-name">Black Crown</div>
+                    <div class="crew-label">Known Members</div>
+                    <ul>
+                        <li>Ryan Murphy</li>
+                        <li>Reshay Tyrone</li>
+                    </ul>
+                    <div class="crew-label">Known Associates</div>
+                    <ul>
+                        <li>Kelvin Flatts</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 03. Business Fronts -->
+        <h2 class="section-title mt-30">03. Business Fronts</h2>
+        <div class="grid-4">
+            <div class="card">
+                <div class="name">Donaleigh's Pub</div>
+                <div class="sub-text">Bay City Crew Front</div>
+                <div class="img-box front-img">
+                    <img src="https://www.upload.ee/image/19448264/Screenshot_2026-06-15_200111.png" alt="Donaleigh's Pub">
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="name">Auntie P's</div>
+                <div class="sub-text">Impact 51 Front</div>
+                <div class="img-box front-img">
+                    <img src="https://www.upload.ee/image/19448266/Screenshot_2026-06-15_200330.png" alt="Auntie P's">
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="name">Pacific Coast Concrete</div>
+                <div class="sub-text">North County Front</div>
+                <div class="img-box no-data">[ PENDING ASSET ]</div>
+            </div>
+
+            <div class="card">
+                <div class="name">Black Crown Front</div>
+                <div class="alert-red mt-10">INACTIVE</div>
+            </div>
+        </div>
+
+        <!-- 04. Casualty Log -->
+        <h2 class="section-title mt-30">04. Casualty Log</h2>
+        <div class="grid-2">
+            <div class="card text-left">
+                <div class="name">James McLeod</div>
+                <div class="desc"><strong class="alert-red">CONFIDENTIAL INFORMANT</strong><br>Active since 2025.</div>
+            </div>
+
+            <div class="card text-left">
+                <div class="name">Joel Levin</div>
+                <div class="desc"><strong class="alert-red">DECEASED // 187 PC</strong><br>Case sealed. Found within local county lines.</div>
+            </div>
+        </div>
 
     </main>
 
