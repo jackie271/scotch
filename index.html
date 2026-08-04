@@ -40,7 +40,7 @@
         }
 
         .col-transnational { width: 170px; }
-        .col-structure { width: 560px; }
+        .col-structure { width: 580px; }
         .col-right { width: 220px; }
 
         /* HEADERE SECTIUNI */
@@ -83,7 +83,7 @@
         .badge-green { background: #15803d; }
         .badge-grey { background: #27272a; color: #71717a; }
 
-        /* IMAGINI SI ETICHETE SYS */
+        /* IMAGINI SI ETICHETE SYS (ALB-NEGRU) */
         .img-container {
             width: 100%;
             height: 110px;
@@ -102,6 +102,8 @@
             height: 100%;
             object-fit: cover;
             display: block;
+            /* FILTRU PENTRU POZE ALB-NEGRU */
+            filter: grayscale(100%) contrast(110%);
         }
 
         .no-img span {
@@ -152,6 +154,7 @@
         .row-center {
             display: flex;
             justify-content: center;
+            position: relative;
         }
 
         .card-apex {
@@ -161,7 +164,8 @@
         .row-mid {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 20px;
+            position: relative;
         }
 
         .card-mid {
@@ -170,19 +174,56 @@
 
         .row-bottom {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             margin-top: 5px;
+            position: relative;
         }
 
         .sub-group {
-            width: 175px;
+            width: 180px;
             display: flex;
             flex-direction: column;
             gap: 8px;
+            position: relative;
         }
 
         .card-sub {
             width: 100%;
+        }
+
+        /* LINII DE CONEXIUNE (ORGANIGRAMA / MAP) */
+        .line-v-center {
+            width: 2px;
+            height: 12px;
+            background: #2563eb;
+            margin: 0 auto;
+            opacity: 0.6;
+        }
+
+        .line-v-dashed {
+            width: 1px;
+            height: 12px;
+            border-left: 1px dashed #3b82f6;
+            margin: 0 auto;
+            opacity: 0.7;
+        }
+
+        .line-connector-box {
+            width: 100%;
+            height: 10px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .line-connector-box::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 20%;
+            right: 20%;
+            border-top: 1px dashed #2563eb;
+            opacity: 0.5;
         }
 
         /* CREW BOXES */
@@ -191,6 +232,12 @@
             border: 1px dashed #212936;
             padding: 6px;
             font-size: 9px;
+            position: relative;
+        }
+
+        .crew-box-center {
+            border: 1px dashed #2563eb;
+            background: #0f1420;
         }
 
         .crew-head {
@@ -202,9 +249,11 @@
         }
 
         .crew-sub {
-            color: #6b7280;
+            color: #3b82f6;
             font-size: 7.5px;
-            margin-top: 4px;
+            font-weight: bold;
+            margin-top: 5px;
+            letter-spacing: 0.5px;
         }
 
         .crew-box ul {
@@ -214,15 +263,16 @@
 
         .crew-box li {
             color: #9ca3af;
-            padding-left: 6px;
+            padding-left: 8px;
             position: relative;
+            line-height: 1.4;
         }
 
         .crew-box li::before {
             content: ">";
             position: absolute;
             left: 0;
-            color: #4b5563;
+            color: #3b82f6;
         }
 
         /* BUSINESS FRONTS & LOG */
@@ -336,6 +386,9 @@
                 </div>
             </div>
 
+            <!-- LINIE DE CONEXIUNE VERTICALA -->
+            <div class="line-v-center"></div>
+
             <!-- MID LEVEL -->
             <div class="row-mid">
                 <div class="card card-mid">
@@ -363,10 +416,14 @@
                 </div>
             </div>
 
+            <!-- LINIE DE CONEXIUNE ORIZONTALA & VERTICALA -->
+            <div class="line-connector-box"></div>
+            <div class="line-v-dashed"></div>
+
             <!-- BOTTOM LEVEL (LIEUTENANTS & CREWS) -->
             <div class="row-bottom">
                 
-                <!-- Sub-Col 1 -->
+                <!-- Sub-Col 1: LIEUTENANT & KNOWN MEMBERS -->
                 <div class="sub-group">
                     <div class="card card-sub">
                         <div class="badge badge-green">LIEUTENANT</div>
@@ -380,6 +437,8 @@
                         </div>
                     </div>
 
+                    <div class="line-v-dashed"></div>
+
                     <div class="crew-box">
                         <div class="crew-head">BAY CITY CREW</div>
                         <div class="crew-sub">KNOWN MEMBERS</div>
@@ -388,6 +447,28 @@
                             <li>Harley 'Razer' Daley</li>
                             <li>Oisin 'Gunna' McGeady</li>
                         </ul>
+                    </div>
+                </div>
+
+                <!-- Sub-Col 2: CENTRU (ACTING LT + LISTA ASSOCIATES PE CENTRU) -->
+                <div class="sub-group">
+                    <div class="card card-sub">
+                        <div class="badge badge-green">ACTING LT</div>
+                        <div class="img-container no-img">
+                            <span>[ NO VISUAL DATA ]</span>
+                            <span class="sys-tag">SYS.IMG.RGC</span>
+                        </div>
+                        <div class="card-info">
+                            <div class="c-name">[ UNASSIGNED ]</div>
+                            <div class="c-desc">Position currently unassigned.</div>
+                        </div>
+                    </div>
+
+                    <div class="line-v-dashed"></div>
+
+                    <!-- CASUTA CU ASOCIATI PE MIJLOC CU LINII DE CONEXIUNE -->
+                    <div class="crew-box crew-box-center">
+                        <div class="crew-head">BAY CITY NETWORK</div>
                         <div class="crew-sub">KNOWN ASSOCIATES</div>
                         <ul>
                             <li>Dixie Barnes</li>
@@ -404,22 +485,7 @@
                     </div>
                 </div>
 
-                <!-- Sub-Col 2 -->
-                <div class="sub-group">
-                    <div class="card card-sub">
-                        <div class="badge badge-green">ACTING LT</div>
-                        <div class="img-container no-img">
-                            <span>[ NO VISUAL DATA ]</span>
-                            <span class="sys-tag">SYS.IMG.RGC</span>
-                        </div>
-                        <div class="card-info">
-                            <div class="c-name">[ NO VISUAL DATA ]</div>
-                            <div class="c-desc">Position currently unassigned.</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Sub-Col 3 -->
+                <!-- Sub-Col 3: ARCHIVED -->
                 <div class="sub-group">
                     <div class="card card-sub card-greyed">
                         <div class="badge badge-grey">LIEUTENANT</div>
