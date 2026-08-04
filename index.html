@@ -250,6 +250,12 @@
             font-size: 9px;
         }
 
+        .crew-box-center {
+            border: 1px dashed #2563eb;
+            background: #0f1420;
+            margin-top: 20px;
+        }
+
         .crew-head {
             color: #e5e7eb;
             font-weight: bold;
@@ -335,7 +341,7 @@
 </head>
 <body>
 
-    <!-- TEXTUL SI BADGE-UL DE SUS DIN POZA INITIALA -->
+    <!-- TEXTUL SI BADGE-UL DE SUS -->
     <div class="main-header">
         <div>
             <div class="header-title">LSSSD // MAJOR CRIMES BUREAU</div>
@@ -348,7 +354,7 @@
 
     <div class="board-container" id="board">
 
-        <!-- CANVASH SVG PENTRU LINII SI SAGEATI -->
+        <!-- CANVAS SVG PENTRU LINII SI SAGEATI -->
         <svg class="svg-canvas" id="svg-canvas">
             <defs>
                 <marker id="arrow-red" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
@@ -367,6 +373,9 @@
 
             <!-- 4. Liniile de ramificatie catre Lieutenanti -->
             <path id="path-branch" stroke="#4b5563" stroke-width="1.5" stroke-dasharray="3 3" fill="none" />
+
+            <!-- 5. Linia de la Lieutenant (Travis Boyd) la Lista Bay City Crew din mijloc -->
+            <path id="path-boyd-crew" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="3 3" fill="none" />
         </svg>
 
         <!-- COLOANA 1: 01. TRANSNATIONAL -->
@@ -455,10 +464,10 @@
                 </div>
             </div>
 
-            <!-- BOTTOM LEVEL (LIEUTENANTS & CREW LIST) -->
+            <!-- BOTTOM LEVEL -->
             <div class="row-bottom">
                 
-                <!-- Sub-Col 1: LIEUTENANT & BAY CITY CREW (MEMBERS + ASSOCIATES) -->
+                <!-- Sub-Col 1: LIEUTENANT (Travis Boyd) -->
                 <div class="sub-group">
                     <div class="card card-sub" id="card-boyd">
                         <div class="badge badge-green">LIEUTENANT</div>
@@ -471,9 +480,24 @@
                             <div class="c-desc">Running city operations as of 2026.</div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- CASUTA COMPLETA BAY CITY CREW -->
-                    <div class="crew-box">
+                <!-- Sub-Col 2: ACTING LT + LISTA BAY CITY CREW PE MIJLOC -->
+                <div class="sub-group">
+                    <div class="card card-sub" id="card-acting">
+                        <div class="badge badge-green">ACTING LT</div>
+                        <div class="img-container">
+                            <span class="no-img-box">[ NO VISUAL DATA ]</span>
+                            <span class="sys-tag">SYS.IMG.RGC</span>
+                        </div>
+                        <div class="card-info">
+                            <div class="c-name">[ UNASSIGNED ]</div>
+                            <div class="c-desc">Position currently unassigned.</div>
+                        </div>
+                    </div>
+
+                    <!-- CASUTA COMPLETA BAY CITY CREW PE MIJLOC -->
+                    <div class="crew-box crew-box-center" id="crew-bay-city">
                         <div class="crew-head">BAY CITY CREW</div>
                         
                         <div class="crew-sub">KNOWN MEMBERS</div>
@@ -496,21 +520,6 @@
                             <li>Richard Gilroy</li>
                             <li>Rian 'Playboy' Morris</li>
                         </ul>
-                    </div>
-                </div>
-
-                <!-- Sub-Col 2: ACTING LT -->
-                <div class="sub-group">
-                    <div class="card card-sub" id="card-acting">
-                        <div class="badge badge-green">ACTING LT</div>
-                        <div class="img-container">
-                            <span class="no-img-box">[ NO VISUAL DATA ]</span>
-                            <span class="sys-tag">SYS.IMG.RGC</span>
-                        </div>
-                        <div class="card-info">
-                            <div class="c-name">[ UNASSIGNED ]</div>
-                            <div class="c-desc">Position currently unassigned.</div>
-                        </div>
                     </div>
                 </div>
 
@@ -602,7 +611,7 @@
 
     </div>
 
-    <!-- SCRIPT PENTRU DESENAREA DINAMICA A LINILOR DE CONEXIUNE -->
+    <!-- SCRIPT CALCULATOR LINII SVG -->
     <script>
         function drawLines() {
             const board = document.getElementById('board');
@@ -647,7 +656,7 @@
                 line3.setAttribute('x2', p2.x); line3.setAttribute('y2', p2.y);
             }
 
-            // 4. Branch down to Lieutenants
+            // 4. Ramificatie catre Lieutenanti
             const boyd = document.getElementById('card-boyd');
             const acting = document.getElementById('card-acting');
             const archived = document.getElementById('card-archived');
@@ -669,6 +678,23 @@
                     M ${pArchived.x} ${midY} L ${pArchived.x} ${pArchived.y}
                 `;
                 path.setAttribute('d', d);
+            }
+
+            // 5. Linia de la Boyd (Lieutenant) la Lista Bay City Crew pe mijloc
+            const crew = document.getElementById('crew-bay-city');
+            if (boyd && crew) {
+                const pBoyd = getPt(boyd, 'bottom');
+                const pCrew = getPt(crew, 'top');
+                const midY = pBoyd.y + 10;
+
+                const pathBoydCrew = document.getElementById('path-boyd-crew');
+                const d = `
+                    M ${pBoyd.x} ${pBoyd.y}
+                    L ${pBoyd.x} ${midY}
+                    L ${pCrew.x} ${midY}
+                    L ${pCrew.x} ${pCrew.y}
+                `;
+                pathBoydCrew.setAttribute('d', d);
             }
         }
 
