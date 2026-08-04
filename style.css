@@ -15,52 +15,90 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid #ef4444;
+    border-bottom: 2px solid #b91c1c;
     padding-bottom: 15px;
     margin-bottom: 30px;
 }
 
 .matrix-header h1 {
     color: #ffffff;
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     letter-spacing: 1px;
+}
+
+.subtitle {
+    color: #9ca3af;
+    font-size: 0.9rem;
+    margin-top: 4px;
 }
 
 .confidential-tag {
     background: #7f1d1d;
     color: #fca5a5;
-    padding: 6px 12px;
-    font-size: 0.8rem;
+    padding: 8px 14px;
+    font-size: 0.75rem;
     font-weight: bold;
     border: 1px solid #ef4444;
-}
-
-.section {
-    margin-bottom: 35px;
+    letter-spacing: 1px;
 }
 
 .section-title {
     color: #9ca3af;
     border-bottom: 1px solid #374151;
-    padding-bottom: 5px;
+    padding-bottom: 6px;
     margin-bottom: 20px;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
 }
 
-.grid-row {
-    display: flex;
-    flex-wrap: wrap;
+.matrix-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.grid-4 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.center-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
 }
 
 .card {
     background: #111827;
     border: 1px solid #374151;
     padding: 15px;
-    width: 220px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
+}
+
+.wide-card {
+    width: 100%;
+    max-width: 500px;
+}
+
+.column-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .role {
@@ -68,17 +106,19 @@ body {
     color: #9ca3af;
     text-transform: uppercase;
     margin-bottom: 10px;
+    letter-spacing: 1px;
 }
 
 .img-box {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     background: #1f2937;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 12px;
     border: 1px solid #4b5563;
+    overflow: hidden;
 }
 
 .img-box img {
@@ -87,52 +127,83 @@ body {
     object-fit: cover;
 }
 
+.front-img {
+    width: 100%;
+    height: 140px;
+    margin-top: 10px;
+}
+
 .no-data {
-    font-size: 0.65rem;
+    font-size: 0.7rem;
     color: #6b7280;
     text-align: center;
+    padding: 10px;
 }
 
 .details {
-    text-align: center;
+    width: 100%;
 }
 
-.details h3 {
-    color: #f3f4f6;
-    font-size: 1rem;
-    margin-bottom: 4px;
+.name {
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 5px;
 }
 
-.aka {
+.sub-text {
     font-size: 0.85rem;
     color: #9ca3af;
-    margin-bottom: 4px;
+    line-height: 1.4;
 }
 
-.status-wanted {
+.desc {
+    font-size: 0.85rem;
+    color: #d1d5db;
+    margin-top: 5px;
+    line-height: 1.4;
+}
+
+.alert-red {
     color: #ef4444;
     font-weight: bold;
-    font-size: 0.85rem;
 }
 
 .crew-box {
-    width: 260px;
-    align-items: flex-start;
+    background: #0f172a;
+    border: 1px solid #1e293b;
+    padding: 15px;
+    text-align: left;
 }
 
-.crew-box h3 {
+.crew-name {
     color: #f3f4f6;
+    font-size: 1rem;
+    font-weight: bold;
+    border-bottom: 1px solid #334155;
+    padding-bottom: 5px;
     margin-bottom: 10px;
 }
 
 .crew-label {
-    font-size: 0.8rem;
-    color: #9ca3af;
-    margin-bottom: 5px;
+    font-size: 0.75rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    margin-top: 8px;
+    margin-bottom: 4px;
 }
 
 .crew-box ul {
-    list-style-type: square;
-    padding-left: 20px;
-    font-size: 0.9rem;
+    list-style-position: inside;
+    font-size: 0.85rem;
+    color: #cbd5e1;
 }
+
+.text-left {
+    align-items: flex-start;
+    text-align: left;
+}
+
+.mt-10 { margin-top: 10px; }
+.mt-20 { margin-top: 20px; }
+.mt-30 { margin-top: 30px; }
