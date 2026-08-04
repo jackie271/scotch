@@ -21,8 +21,46 @@
             color: #c3c7d1;
             padding: 20px;
             display: flex;
-            justify-content: center;
-            min-width: 1000px;
+            flex-direction: column;
+            align-items: center;
+            min-width: 1040px;
+        }
+
+        /* HEADER-UL DIN POZA INITIALA */
+        .main-header {
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 2px solid #1c2330;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .header-title {
+            font-size: 22px;
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: 1.5px;
+        }
+
+        .header-subtitle {
+            font-size: 10px;
+            color: #64748b;
+            letter-spacing: 1.5px;
+            margin-top: 4px;
+            text-transform: uppercase;
+        }
+
+        .classification-stamp {
+            border: 1px solid #b91c1c;
+            color: #ef4444;
+            background: rgba(185, 28, 28, 0.08);
+            font-size: 10px;
+            font-weight: bold;
+            padding: 5px 12px;
+            letter-spacing: 1px;
         }
 
         /* STRUCTURA PE 3 COLOANE PARALELE */
@@ -31,16 +69,30 @@
             flex-direction: row;
             gap: 15px;
             align-items: flex-start;
+            position: relative;
+            width: 1000px;
+        }
+
+        /* STRAT SVG PENTRU LINIILE DE CONEXIUNE */
+        .svg-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
         }
 
         .column {
             display: flex;
             flex-direction: column;
             gap: 10px;
+            z-index: 10;
         }
 
         .col-transnational { width: 170px; }
-        .col-structure { width: 580px; }
+        .col-structure { width: 560px; }
         .col-right { width: 220px; }
 
         /* HEADERE SECTIUNI */
@@ -102,13 +154,15 @@
             height: 100%;
             object-fit: cover;
             display: block;
-            /* FILTRU PENTRU POZE ALB-NEGRU */
             filter: grayscale(100%) contrast(110%);
         }
 
-        .no-img span {
-            font-size: 8px;
+        .no-img-box {
+            border: 1px dashed #dc2626;
             color: #ef4444;
+            font-size: 8px;
+            padding: 4px 6px;
+            letter-spacing: 0.5px;
         }
 
         .sys-tag {
@@ -154,7 +208,6 @@
         .row-center {
             display: flex;
             justify-content: center;
-            position: relative;
         }
 
         .card-apex {
@@ -164,19 +217,18 @@
         .row-mid {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            position: relative;
+            gap: 25px;
+            margin-top: 25px;
         }
 
         .card-mid {
-            width: 160px;
+            width: 165px;
         }
 
         .row-bottom {
             display: flex;
-            gap: 12px;
-            margin-top: 5px;
-            position: relative;
+            gap: 10px;
+            margin-top: 30px;
         }
 
         .sub-group {
@@ -184,46 +236,10 @@
             display: flex;
             flex-direction: column;
             gap: 8px;
-            position: relative;
         }
 
         .card-sub {
             width: 100%;
-        }
-
-        /* LINII DE CONEXIUNE (ORGANIGRAMA / MAP) */
-        .line-v-center {
-            width: 2px;
-            height: 12px;
-            background: #2563eb;
-            margin: 0 auto;
-            opacity: 0.6;
-        }
-
-        .line-v-dashed {
-            width: 1px;
-            height: 12px;
-            border-left: 1px dashed #3b82f6;
-            margin: 0 auto;
-            opacity: 0.7;
-        }
-
-        .line-connector-box {
-            width: 100%;
-            height: 10px;
-            position: relative;
-            display: flex;
-            justify-content: center;
-        }
-
-        .line-connector-box::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 20%;
-            right: 20%;
-            border-top: 1px dashed #2563eb;
-            opacity: 0.5;
         }
 
         /* CREW BOXES */
@@ -232,12 +248,6 @@
             border: 1px dashed #212936;
             padding: 6px;
             font-size: 9px;
-            position: relative;
-        }
-
-        .crew-box-center {
-            border: 1px dashed #2563eb;
-            background: #0f1420;
         }
 
         .crew-head {
@@ -252,7 +262,7 @@
             color: #3b82f6;
             font-size: 7.5px;
             font-weight: bold;
-            margin-top: 5px;
+            margin-top: 6px;
             letter-spacing: 0.5px;
         }
 
@@ -325,7 +335,39 @@
 </head>
 <body>
 
-    <div class="board-container">
+    <!-- TEXTUL SI BADGE-UL DE SUS DIN POZA INITIALA -->
+    <div class="main-header">
+        <div>
+            <div class="header-title">LSSSD // MAJOR CRIMES BUREAU</div>
+            <div class="header-subtitle">INTELLIGENCE MATRIX: OPERATIONS HIERARCHY</div>
+        </div>
+        <div class="classification-stamp">
+            CONFIDENTIAL / LAW ENFORCEMENT SENSITIVE
+        </div>
+    </div>
+
+    <div class="board-container" id="board">
+
+        <!-- CANVASH SVG PENTRU LINII SI SAGEATI -->
+        <svg class="svg-canvas" id="svg-canvas">
+            <defs>
+                <marker id="arrow-red" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#ef4444" />
+                </marker>
+            </defs>
+
+            <!-- 1. Linia diagonala Conor Molloy -> Dennis Moran -->
+            <line id="line-molloy-moran" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 4" />
+
+            <!-- 2. Sageata rosie Dennis Moran -> Brennan Connors -->
+            <line id="line-moran-connors" stroke="#ef4444" stroke-width="1.5" marker-end="url(#arrow-red)" />
+
+            <!-- 3. Linia orizontala Brennan Connors -> Joe Tulsa -->
+            <line id="line-connors-tulsa" stroke="#4b5563" stroke-width="1.5" stroke-dasharray="3 3" />
+
+            <!-- 4. Liniile de ramificatie catre Lieutenanti -->
+            <path id="path-branch" stroke="#4b5563" stroke-width="1.5" stroke-dasharray="3 3" fill="none" />
+        </svg>
 
         <!-- COLOANA 1: 01. TRANSNATIONAL -->
         <div class="column col-transnational">
@@ -333,8 +375,8 @@
 
             <div class="card">
                 <div class="badge badge-blue">LOGISTICS</div>
-                <div class="img-container no-img">
-                    <span>[ NO VISUAL DATA ]</span>
+                <div class="img-container">
+                    <span class="no-img-box">[ NO VISUAL DATA ]</span>
                     <span class="sys-tag">SYS.IMG.RGC</span>
                 </div>
                 <div class="card-info">
@@ -343,7 +385,7 @@
                 </div>
             </div>
 
-            <div class="card">
+            <div class="card" id="card-molloy">
                 <div class="badge badge-blue">FINANCER</div>
                 <div class="img-container">
                     <img src="https://www.upload.ee/image/19448151/Screenshot_2026-06-14_180609.png" alt="Conor Molloy">
@@ -372,7 +414,7 @@
 
             <!-- APEX -->
             <div class="row-center">
-                <div class="card card-apex">
+                <div class="card card-apex" id="card-moran">
                     <div class="badge badge-red">STATE LIAISON / APEX</div>
                     <div class="img-container">
                         <img src="https://www.upload.ee/image/18271271/Screenshot_2025-06-09_185712.png" alt="Dennis Moran">
@@ -386,12 +428,9 @@
                 </div>
             </div>
 
-            <!-- LINIE DE CONEXIUNE VERTICALA -->
-            <div class="line-v-center"></div>
-
             <!-- MID LEVEL -->
             <div class="row-mid">
-                <div class="card card-mid">
+                <div class="card card-mid" id="card-connors">
                     <div class="badge badge-magenta">STREET BOSS</div>
                     <div class="img-container">
                         <img src="https://www.upload.ee/image/19448150/Screenshot_2026-06-15_181827.png" alt="Brennan Connors">
@@ -403,10 +442,10 @@
                     </div>
                 </div>
 
-                <div class="card card-mid">
+                <div class="card card-mid" id="card-tulsa">
                     <div class="badge badge-orange">ADVISOR</div>
-                    <div class="img-container no-img">
-                        <span>[ NO VISUAL DATA ]</span>
+                    <div class="img-container">
+                        <span class="no-img-box">[ NO VISUAL DATA ]</span>
                         <span class="sys-tag">SYS.IMG.RGC</span>
                     </div>
                     <div class="card-info">
@@ -416,19 +455,15 @@
                 </div>
             </div>
 
-            <!-- LINIE DE CONEXIUNE ORIZONTALA & VERTICALA -->
-            <div class="line-connector-box"></div>
-            <div class="line-v-dashed"></div>
-
-            <!-- BOTTOM LEVEL (LIEUTENANTS & CREWS) -->
+            <!-- BOTTOM LEVEL (LIEUTENANTS & CREW LIST) -->
             <div class="row-bottom">
                 
-                <!-- Sub-Col 1: LIEUTENANT & KNOWN MEMBERS -->
+                <!-- Sub-Col 1: LIEUTENANT & BAY CITY CREW (MEMBERS + ASSOCIATES) -->
                 <div class="sub-group">
-                    <div class="card card-sub">
+                    <div class="card card-sub" id="card-boyd">
                         <div class="badge badge-green">LIEUTENANT</div>
-                        <div class="img-container no-img">
-                            <span>[ NO VISUAL DATA ]</span>
+                        <div class="img-container">
+                            <span class="no-img-box">[ NO VISUAL DATA ]</span>
                             <span class="sys-tag">SYS.IMG.RGC</span>
                         </div>
                         <div class="card-info">
@@ -437,38 +472,17 @@
                         </div>
                     </div>
 
-                    <div class="line-v-dashed"></div>
-
+                    <!-- CASUTA COMPLETA BAY CITY CREW -->
                     <div class="crew-box">
                         <div class="crew-head">BAY CITY CREW</div>
+                        
                         <div class="crew-sub">KNOWN MEMBERS</div>
                         <ul>
                             <li>Michal 'Jackie' Murrily</li>
                             <li>Harley 'Razer' Daley</li>
                             <li>Oisin 'Gunna' McGeady</li>
                         </ul>
-                    </div>
-                </div>
 
-                <!-- Sub-Col 2: CENTRU (ACTING LT + LISTA ASSOCIATES PE CENTRU) -->
-                <div class="sub-group">
-                    <div class="card card-sub">
-                        <div class="badge badge-green">ACTING LT</div>
-                        <div class="img-container no-img">
-                            <span>[ NO VISUAL DATA ]</span>
-                            <span class="sys-tag">SYS.IMG.RGC</span>
-                        </div>
-                        <div class="card-info">
-                            <div class="c-name">[ UNASSIGNED ]</div>
-                            <div class="c-desc">Position currently unassigned.</div>
-                        </div>
-                    </div>
-
-                    <div class="line-v-dashed"></div>
-
-                    <!-- CASUTA CU ASOCIATI PE MIJLOC CU LINII DE CONEXIUNE -->
-                    <div class="crew-box crew-box-center">
-                        <div class="crew-head">BAY CITY NETWORK</div>
                         <div class="crew-sub">KNOWN ASSOCIATES</div>
                         <ul>
                             <li>Dixie Barnes</li>
@@ -485,12 +499,27 @@
                     </div>
                 </div>
 
+                <!-- Sub-Col 2: ACTING LT -->
+                <div class="sub-group">
+                    <div class="card card-sub" id="card-acting">
+                        <div class="badge badge-green">ACTING LT</div>
+                        <div class="img-container">
+                            <span class="no-img-box">[ NO VISUAL DATA ]</span>
+                            <span class="sys-tag">SYS.IMG.RGC</span>
+                        </div>
+                        <div class="card-info">
+                            <div class="c-name">[ UNASSIGNED ]</div>
+                            <div class="c-desc">Position currently unassigned.</div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Sub-Col 3: ARCHIVED -->
                 <div class="sub-group">
-                    <div class="card card-sub card-greyed">
+                    <div class="card card-sub card-greyed" id="card-archived">
                         <div class="badge badge-grey">LIEUTENANT</div>
-                        <div class="img-container no-img">
-                            <span>[ ARCHIVED ]</span>
+                        <div class="img-container">
+                            <span style="font-size: 8px; color: #4b5563;">[ ARCHIVED ]</span>
                         </div>
                         <div class="card-info">
                             <div class="c-name txt-dim">ANJAWON FULLER</div>
@@ -539,8 +568,8 @@
             <div class="card card-front">
                 <div class="c-name">PACIFIC COAST CONCRETE</div>
                 <div class="front-tag">NORTH COUNTY FRONT</div>
-                <div class="img-container front-img no-img">
-                    <span>[ PENDING ASSET ]</span>
+                <div class="img-container front-img">
+                    <span class="no-img-box">[ PENDING ASSET ]</span>
                 </div>
             </div>
 
@@ -573,5 +602,79 @@
 
     </div>
 
+    <!-- SCRIPT PENTRU DESENAREA DINAMICA A LINILOR DE CONEXIUNE -->
+    <script>
+        function drawLines() {
+            const board = document.getElementById('board');
+            const boardRect = board.getBoundingClientRect();
+
+            function getPt(el, pos) {
+                const r = el.getBoundingClientRect();
+                if (pos === 'right') return { x: r.right - boardRect.left, y: r.top + r.height / 2 - boardRect.top };
+                if (pos === 'left') return { x: r.left - boardRect.left, y: r.top + r.height / 2 - boardRect.top };
+                if (pos === 'top') return { x: r.left + r.width / 2 - boardRect.left, y: r.top - boardRect.top };
+                if (pos === 'bottom') return { x: r.left + r.width / 2 - boardRect.left, y: r.bottom - boardRect.top };
+            }
+
+            // 1. Molloy -> Moran
+            const molloy = document.getElementById('card-molloy');
+            const moran = document.getElementById('card-moran');
+            if (molloy && moran) {
+                const p1 = getPt(molloy, 'right');
+                const p2 = getPt(moran, 'left');
+                const line1 = document.getElementById('line-molloy-moran');
+                line1.setAttribute('x1', p1.x); line1.setAttribute('y1', p1.y);
+                line1.setAttribute('x2', p2.x); line1.setAttribute('y2', p2.y);
+            }
+
+            // 2. Moran -> Connors
+            const connors = document.getElementById('card-connors');
+            if (moran && connors) {
+                const p1 = getPt(moran, 'bottom');
+                const p2 = getPt(connors, 'top');
+                const line2 = document.getElementById('line-moran-connors');
+                line2.setAttribute('x1', p1.x); line2.setAttribute('y1', p1.y);
+                line2.setAttribute('x2', p2.x); line2.setAttribute('y2', p2.y - 3);
+            }
+
+            // 3. Connors -> Tulsa
+            const tulsa = document.getElementById('card-tulsa');
+            if (connors && tulsa) {
+                const p1 = getPt(connors, 'right');
+                const p2 = getPt(tulsa, 'left');
+                const line3 = document.getElementById('line-connors-tulsa');
+                line3.setAttribute('x1', p1.x); line3.setAttribute('y1', p1.y);
+                line3.setAttribute('x2', p2.x); line3.setAttribute('y2', p2.y);
+            }
+
+            // 4. Branch down to Lieutenants
+            const boyd = document.getElementById('card-boyd');
+            const acting = document.getElementById('card-acting');
+            const archived = document.getElementById('card-archived');
+            if (connors && boyd && acting && archived) {
+                const pStart = getPt(connors, 'bottom');
+                const pBoyd = getPt(boyd, 'top');
+                const pActing = getPt(acting, 'top');
+                const pArchived = getPt(archived, 'top');
+                
+                const midY = pStart.y + 14;
+
+                const path = document.getElementById('path-branch');
+                const d = `
+                    M ${pStart.x} ${pStart.y}
+                    L ${pStart.x} ${midY}
+                    M ${pBoyd.x} ${midY} L ${pArchived.x} ${midY}
+                    M ${pBoyd.x} ${midY} L ${pBoyd.x} ${pBoyd.y}
+                    M ${pActing.x} ${midY} L ${pActing.x} ${pActing.y}
+                    M ${pArchived.x} ${midY} L ${pArchived.x} ${pArchived.y}
+                `;
+                path.setAttribute('d', d);
+            }
+        }
+
+        window.addEventListener('load', drawLines);
+        window.addEventListener('resize', drawLines);
+        setTimeout(drawLines, 300);
+    </script>
 </body>
 </html>
