@@ -1,260 +1,124 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Consolas', 'Courier New', monospace;
+* { 
+    box-sizing: border-box; 
 }
 
 body {
-    background-color: #0c0e14;
-    background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    background-size: 18px 18px;
-    color: #c3c7d1;
-    padding: 25px;
-    display: flex;
-    justify-content: center;
+    background-color: #161616;
+    color: #d0d0d0;
+    font-family: 'Courier New', Courier, monospace, Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
 }
 
-.board-container {
-    display: flex;
+.header {
+    text-align: center;
+    border-bottom: 2px solid #333;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 20px;
+    letter-spacing: 2px;
+    color: #ffffff;
+}
+
+.header p {
+    margin: 5px 0 0 0;
+    font-size: 12px;
+    color: #888888;
+}
+
+.matrix-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr 1fr;
     gap: 15px;
-    align-items: flex-start;
+    max-width: 1250px;
+    margin: 0 auto;
 }
 
 .column {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    background-color: #1f1f1f;
+    border: 1px solid #333;
+    padding: 10px;
 }
 
-.col-transnational { width: 170px; }
-.col-structure { width: 550px; }
-.col-right { width: 220px; }
+.column-header {
+    text-align: center;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 8px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 1px solid #444;
+}
 
-/* Section Headers */
-.sec-header {
-    background: #141b26;
-    border: 1px solid #232d3d;
-    color: #3b82f6;
+.col-transnational .column-header { color: #7b9acc; background: #182232; }
+.col-local .column-header { color: #e76f51; background: #2a1513; }
+.col-fronts .column-header { color: #e9c46a; background: #262010; }
+
+.card {
+    background-color: #282828;
+    border: 1px solid #3a3a3a;
+    margin-bottom: 12px;
+    padding: 8px;
+}
+
+.card-badge {
+    display: block;
+    text-align: center;
     font-size: 10px;
     font-weight: bold;
-    padding: 5px 8px;
+    padding: 4px;
+    color: #fff;
+    margin-bottom: 8px;
+    text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
-/* Card General Styling */
-.card {
-    background: #11151e;
-    border: 1px solid #202736;
-    position: relative;
-    padding: 6px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.6);
-}
+.badge-blue { background-color: #2b3e63; }
+.badge-red { background-color: #8b261d; }
+.badge-gold { background-color: #8a6d1c; }
+.badge-gray { background-color: #4a4a4a; }
 
-.badge {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    padding: 3px 6px;
-    font-size: 9px;
-    font-weight: bold;
-    color: #ffffff;
-    text-align: left;
-    letter-spacing: 0.5px;
-}
-
-.badge-blue { background: #1d4ed8; }
-.badge-red { background: #b91c1c; }
-.badge-magenta { background: #831843; }
-.badge-orange { background: #c2410c; }
-.badge-green { background: #15803d; }
-.badge-grey { background: #27272a; color: #71717a; }
-
-/* Image Container & System Tag */
-.img-container {
-    width: 100%;
-    height: 110px;
-    background: #08090d;
-    border: 1px solid #1c2330;
-    margin-top: 18px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
-
-.img-container img {
-    width: 100%;
-    height: 100%;
+.avatar {
+    width: 110px;
+    height: 125px;
     object-fit: cover;
+    border: 1px solid #555;
+    background-color: #111;
+    margin: 0 auto 8px auto;
+    display: block;
 }
 
-.no-img span {
-    font-size: 8px;
-    color: #ef4444;
-}
-
-.sys-tag {
-    position: absolute;
-    bottom: 2px;
-    right: 4px;
-    font-size: 6px;
-    color: #4b5563;
-}
-
-/* Typography Inside Cards */
-.card-info {
-    padding-top: 6px;
-}
-
-.c-name {
-    font-size: 11px;
+.card-title {
+    text-align: center;
     font-weight: bold;
-    color: #ffffff;
-    margin-bottom: 2px;
-}
-
-.c-meta {
-    font-size: 9px;
-    color: #9ca3af;
-    line-height: 1.3;
-}
-
-.c-desc {
-    font-size: 8px;
-    color: #8b949e;
-    line-height: 1.3;
-}
-
-.c-sub {
-    font-size: 8px;
-    margin-top: 3px;
-}
-
-/* Layout Rows inside Local Structure */
-.row-center {
-    display: flex;
-    justify-content: center;
-}
-
-.card-apex {
-    width: 210px;
-}
-
-.row-mid {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-}
-
-.card-mid {
-    width: 160px;
-}
-
-.row-bottom {
-    display: flex;
-    gap: 10px;
-    margin-top: 5px;
-}
-
-.sub-group {
-    width: 170px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.card-sub {
-    width: 100%;
-}
-
-/* Crew Boxes */
-.crew-box {
-    background: #0d1017;
-    border: 1px dashed #212936;
-    padding: 6px;
-    font-size: 9px;
-}
-
-.crew-head {
-    color: #e5e7eb;
-    font-weight: bold;
-    border-bottom: 1px solid #1f2937;
-    padding-bottom: 3px;
+    font-size: 12px;
+    color: #fff;
     margin-bottom: 4px;
 }
 
-.crew-sub {
-    color: #6b7280;
-    font-size: 7.5px;
-    margin-top: 4px;
+.card-info {
+    font-size: 11px;
+    color: #b0b0b0;
+    line-height: 1.4;
 }
 
-.crew-box ul {
-    list-style: none;
+.sub-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
 }
 
-.crew-box li {
-    color: #9ca3af;
-    padding-left: 6px;
-    position: relative;
+.footer-classification {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 11px;
+    color: #d9534f;
+    letter-spacing: 1px;
+    border-top: 1px solid #333;
+    padding-top: 10px;
 }
-
-.crew-box li::before {
-    content: ">";
-    position: absolute;
-    left: 0;
-    color: #4b5563;
-}
-
-/* Business Fronts */
-.card-front .c-name {
-    margin-top: 2px;
-}
-
-.front-tag {
-    background: #171d27;
-    border: 1px solid #283141;
-    color: #8b949e;
-    font-size: 7.5px;
-    padding: 2px 4px;
-    display: inline-block;
-    margin-top: 2px;
-}
-
-.front-img {
-    height: 60px;
-    margin-top: 6px;
-}
-
-/* Casualty Log */
-.log-yellow {
-    border-left: 2px solid #eab308;
-    background: #14161d;
-}
-
-.log-red {
-    border-left: 2px solid #ef4444;
-    background: #14161d;
-}
-
-/* Text Utility Classes */
-.txt-red { color: #ef4444 !important; }
-.txt-yellow { color: #facc15 !important; }
-.txt-sub { color: #6b7280 !important; }
-.txt-dim { color: #374151 !important; }
-
-.txt-strike {
-    text-decoration: line-through;
-    color: #ef4444 !important;
-}
-
-.card-greyed, .crew-greyed {
-    opacity: 0.45;
-}
-
-.mt-15 { margin-top: 15px; }
