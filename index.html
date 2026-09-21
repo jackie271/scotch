@@ -1,706 +1,243 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LSSSD // Major Crimes Bureau</title>
+    <title>LSPD Major Crimes Bureau - Operations Hierarchy Matrix</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Consolas', 'Courier New', monospace;
-        }
-
+        * { box-sizing: border-box; }
         body {
-            background-color: #0b0d12;
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 18px 18px;
-            color: #c3c7d1;
+            background-color: #161616;
+            color: #d0d0d0;
+            font-family: 'Courier New', Courier, monospace, Arial, sans-serif;
+            margin: 0;
             padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-width: 1040px;
         }
-
-        /* HEADER-UL DIN POZA INITIALA */
-        .main-header {
-            width: 100%;
-            max-width: 1000px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            border-bottom: 2px solid #1c2330;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #333;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
         }
-
-        .header-title {
-            font-size: 22px;
-            font-weight: 900;
+        .header h1 {
+            margin: 0;
+            font-size: 20px;
+            letter-spacing: 2px;
             color: #ffffff;
-            letter-spacing: 1.5px;
         }
-
-        .header-subtitle {
-            font-size: 10px;
-            color: #64748b;
-            letter-spacing: 1.5px;
-            margin-top: 4px;
-            text-transform: uppercase;
+        .header p {
+            margin: 5px 0 0 0;
+            font-size: 12px;
+            color: #888888;
         }
-
-        .classification-stamp {
-            border: 1px solid #b91c1c;
-            color: #ef4444;
-            background: rgba(185, 28, 28, 0.08);
-            font-size: 10px;
-            font-weight: bold;
-            padding: 5px 12px;
-            letter-spacing: 1px;
-        }
-
-        /* STRUCTURA PE 3 COLOANE PARALELE */
-        .board-container {
-            display: flex;
-            flex-direction: row;
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.4fr 1fr;
             gap: 15px;
-            align-items: flex-start;
-            position: relative;
-            width: 1000px;
+            max-width: 1250px;
+            margin: 0 auto;
         }
-
-        /* STRAT SVG PENTRU LINIILE DE CONEXIUNE */
-        .svg-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 5;
-        }
-
         .column {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            z-index: 10;
+            background-color: #1f1f1f;
+            border: 1px solid #333;
+            padding: 10px;
         }
+        .column-header {
+            text-align: center;
+            font-weight: bold;
+            font-size: 12px;
+            padding: 8px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid #444;
+        }
+        .col-transnational .column-header { color: #7b9acc; background: #182232; }
+        .col-local .column-header { color: #e76f51; background: #2a1513; }
+        .col-fronts .column-header { color: #e9c46a; background: #262010; }
 
-        .col-transnational { width: 170px; }
-        .col-structure { width: 560px; }
-        .col-right { width: 220px; }
-
-        /* HEADERE SECTIUNI */
-        .sec-header {
-            background: #141b26;
-            border: 1px solid #232d3d;
-            color: #3b82f6;
+        .card {
+            background-color: #282828;
+            border: 1px solid #3a3a3a;
+            margin-bottom: 12px;
+            padding: 8px;
+        }
+        .card-badge {
+            display: block;
+            text-align: center;
             font-size: 10px;
             font-weight: bold;
-            padding: 5px 8px;
+            padding: 4px;
+            color: #fff;
+            margin-bottom: 8px;
+            text-transform: uppercase;
             letter-spacing: 0.5px;
         }
+        .badge-blue { background-color: #2b3e63; }
+        .badge-red { background-color: #8b261d; }
+        .badge-gold { background-color: #8a6d1c; }
+        .badge-gray { background-color: #4a4a4a; }
 
-        /* CARDURI */
-        .card {
-            background: #11151e;
-            border: 1px solid #202736;
-            position: relative;
-            padding: 6px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.6);
-        }
-
-        .badge {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            padding: 3px 6px;
-            font-size: 9px;
-            font-weight: bold;
-            color: #ffffff;
-            text-align: left;
-            letter-spacing: 0.5px;
-        }
-
-        .badge-blue { background: #1d4ed8; }
-        .badge-red { background: #b91c1c; }
-        .badge-magenta { background: #831843; }
-        .badge-orange { background: #c2410c; }
-        .badge-green { background: #15803d; }
-        .badge-grey { background: #27272a; color: #71717a; }
-
-        /* IMAGINI SI ETICHETE SYS (ALB-NEGRU) */
-        .img-container {
-            width: 100%;
-            height: 110px;
-            background: #08090d;
-            border: 1px solid #1c2330;
-            margin-top: 18px;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .img-container img {
-            width: 100%;
-            height: 100%;
+        .avatar {
+            width: 110px;
+            height: 125px;
             object-fit: cover;
+            border: 1px solid #555;
+            background-color: #111;
+            margin: 0 auto 8px auto;
             display: block;
-            filter: grayscale(100%) contrast(110%);
         }
-
-        .no-img-box {
-            border: 1px dashed #dc2626;
-            color: #ef4444;
-            font-size: 8px;
-            padding: 4px 6px;
-            letter-spacing: 0.5px;
-        }
-
-        .sys-tag {
-            position: absolute;
-            bottom: 2px;
-            right: 4px;
-            font-size: 6px;
-            color: #4b5563;
-            background: rgba(0,0,0,0.6);
-            padding: 1px 2px;
-        }
-
-        /* TEXT INTERIOR */
-        .card-info {
-            padding-top: 6px;
-        }
-
-        .c-name {
-            font-size: 11px;
+        .card-title {
+            text-align: center;
             font-weight: bold;
-            color: #ffffff;
-            margin-bottom: 2px;
-        }
-
-        .c-meta {
-            font-size: 9px;
-            color: #9ca3af;
-            line-height: 1.3;
-        }
-
-        .c-desc {
-            font-size: 8px;
-            color: #8b949e;
-            line-height: 1.3;
-        }
-
-        .c-sub {
-            font-size: 8px;
-            margin-top: 3px;
-        }
-
-        /* ASEZARE IERARHICA IN COLOANA CENTRALA */
-        .row-center {
-            display: flex;
-            justify-content: center;
-        }
-
-        .card-apex {
-            width: 210px;
-        }
-
-        .row-mid {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            margin-top: 25px;
-        }
-
-        .card-mid {
-            width: 165px;
-        }
-
-        .row-bottom {
-            display: flex;
-            gap: 10px;
-            margin-top: 30px;
-        }
-
-        .sub-group {
-            width: 180px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .card-sub {
-            width: 100%;
-        }
-
-        /* CREW BOXES */
-        .crew-box {
-            background: #0d1017;
-            border: 1px dashed #212936;
-            padding: 6px;
-            font-size: 9px;
-        }
-
-        .crew-box-center {
-            border: 1px dashed #2563eb;
-            background: #0f1420;
-            margin-top: 20px;
-        }
-
-        .crew-head {
-            color: #e5e7eb;
-            font-weight: bold;
-            border-bottom: 1px solid #1f2937;
-            padding-bottom: 3px;
+            font-size: 12px;
+            color: #fff;
             margin-bottom: 4px;
         }
-
-        .crew-sub {
-            color: #3b82f6;
-            font-size: 7.5px;
-            font-weight: bold;
-            margin-top: 6px;
-            letter-spacing: 0.5px;
-        }
-
-        .crew-box ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .crew-box li {
-            color: #9ca3af;
-            padding-left: 8px;
-            position: relative;
+        .card-info {
+            font-size: 11px;
+            color: #b0b0b0;
             line-height: 1.4;
         }
-
-        .crew-box li::before {
-            content: ">";
-            position: absolute;
-            left: 0;
-            color: #3b82f6;
+        .sub-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
         }
-
-        /* BUSINESS FRONTS & LOG */
-        .card-front .c-name {
-            margin-top: 2px;
+        .footer-classification {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 11px;
+            color: #d9534f;
+            letter-spacing: 1px;
+            border-top: 1px solid #333;
+            padding-top: 10px;
         }
-
-        .front-tag {
-            background: #171d27;
-            border: 1px solid #283141;
-            color: #8b949e;
-            font-size: 7.5px;
-            padding: 2px 4px;
-            display: inline-block;
-            margin-top: 2px;
-        }
-
-        .front-img {
-            height: 60px;
-            margin-top: 6px;
-        }
-
-        .log-yellow {
-            border-left: 2px solid #eab308;
-            background: #14161d;
-        }
-
-        .log-red {
-            border-left: 2px solid #ef4444;
-            background: #14161d;
-        }
-
-        /* CULORI TEXT & STARI */
-        .txt-red { color: #ef4444 !important; }
-        .txt-yellow { color: #facc15 !important; }
-        .txt-sub { color: #6b7280 !important; }
-        .txt-dim { color: #374151 !important; }
-
-        .txt-strike {
-            text-decoration: line-through;
-            color: #ef4444 !important;
-        }
-
-        .card-greyed, .crew-greyed {
-            opacity: 0.45;
-        }
-
-        .mt-15 { margin-top: 15px; }
     </style>
 </head>
 <body>
 
-    <!-- TEXTUL SI BADGE-UL DE SUS -->
-    <div class="main-header">
-        <div>
-            <div class="header-title">LSSSD // MAJOR CRIMES BUREAU</div>
-            <div class="header-subtitle">INTELLIGENCE MATRIX: OPERATIONS HIERARCHY</div>
-        </div>
-        <div class="classification-stamp">
-            CONFIDENTIAL / LAW ENFORCEMENT SENSITIVE
-        </div>
+    <div class="header">
+        <h1>LOS SANTOS POLICE DEPARTMENT // GANG & NARCOTICS DIVISION</h1>
+        <p>Major Crimes Bureau // Operations Hierarchy Matrix — File #LAPD-2026-08942</p>
     </div>
 
-    <div class="board-container" id="board">
-
-        <!-- CANVAS SVG PENTRU LINII SI SAGEATI -->
-        <svg class="svg-canvas" id="svg-canvas">
-            <defs>
-                <marker id="arrow-red" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#ef4444" />
-                </marker>
-            </defs>
-
-            <!-- 1. Linia diagonala Conor Molloy -> Dennis Moran -->
-            <line id="line-molloy-moran" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 4" />
-
-            <!-- 2. Sageata rosie Dennis Moran -> Brennan Connors -->
-            <line id="line-moran-connors" stroke="#ef4444" stroke-width="1.5" marker-end="url(#arrow-red)" />
-
-            <!-- 3. Linia orizontala Brennan Connors -> Joe Tulsa -->
-            <line id="line-connors-tulsa" stroke="#4b5563" stroke-width="1.5" stroke-dasharray="3 3" />
-
-            <!-- 4. Liniile de ramificatie catre Lieutenanti -->
-            <path id="path-branch" stroke="#4b5563" stroke-width="1.5" stroke-dasharray="3 3" fill="none" />
-
-            <!-- 5. Linia de la Lieutenant (Travis Boyd) la Lista Bay City Crew din mijloc -->
-            <path id="path-boyd-crew" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="3 3" fill="none" />
-        </svg>
-
-        <!-- COLOANA 1: 01. TRANSNATIONAL -->
+    <div class="matrix-grid">
+        
+        <!-- COLOANA 1: SUPPLY EXTERIOR -->
         <div class="column col-transnational">
-            <div class="sec-header">01. TRANSNATIONAL</div>
+            <div class="column-header">Supply Exterior & Rute</div>
 
             <div class="card">
-                <div class="badge badge-blue">LOGISTICS</div>
-                <div class="img-container">
-                    <span class="no-img-box">[ NO VISUAL DATA ]</span>
-                    <span class="sys-tag">SYS.IMG.RGC</span>
-                </div>
+                <span class="card-badge badge-blue">Rută Logistică</span>
+                <div class="card-title">Coridorul Tamaulipas</div>
                 <div class="card-info">
-                    <div class="c-name">BRIAN CAHILL</div>
-                    <div class="c-meta">AKA: Foreman<br>LKA: Ireland</div>
-                </div>
-            </div>
-
-            <div class="card" id="card-molloy">
-                <div class="badge badge-blue">FINANCER</div>
-                <div class="img-container">
-                    <img src="https://www.upload.ee/image/19448151/Screenshot_2026-06-14_180609.png" alt="Conor Molloy">
-                </div>
-                <div class="card-info">
-                    <div class="c-name">CONOR MOLLOY</div>
-                    <div class="c-meta">AKA: Enforcer<br><span class="txt-red">Status: Wanted</span></div>
+                    • <b>Tip:</b> Import En-Gros (Arme/Droguri)<br>
+                    • <b>Statut:</b> Rută Activă Securizată
                 </div>
             </div>
 
             <div class="card">
-                <div class="badge badge-blue">LIAISON</div>
-                <div class="img-container">
-                    <img src="https://www.upload.ee/image/19448152/Screenshot_2026-06-14_180624.png" alt="Andrew Kernohan">
-                </div>
+                <span class="card-badge badge-blue">Coordonator Transport</span>
+                <!-- Înlocuiește src cu link-ul pozei tale -->
+                <img src="https://via.placeholder.com/110x125?text=FATIMA" alt="Fatima Atenas" class="avatar">
+                <div class="card-title">FATIMA ATENAS</div>
                 <div class="card-info">
-                    <div class="c-name">ANDREW KERNOHAN</div>
-                    <div class="c-meta">AKA: Kerny<br>LKA: International</div>
+                    • <b>AKA:</b> "La Jefa" / "La Madrina"<br>
+                    • <b>Rol:</b> Transport de Anvergură (Arme & Droguri)<br>
+                    • <b>Statut:</b> Țintă Principală
+                </div>
+            </div>
+
+            <div class="card">
+                <span class="card-badge badge-blue">Predare Mărfuri</span>
+                <div class="card-title">Curier Dead-Drop</div>
+                <div class="card-info">
+                    • <b>Rol:</b> Preluare loturi mari din transport<br>
+                    • <b>Statut:</b> Neidentificat
                 </div>
             </div>
         </div>
 
-        <!-- COLOANA 2: 02. LOCAL STRUCTURE (BAY CITY) -->
-        <div class="column col-structure">
-            <div class="sec-header">02. LOCAL STRUCTURE (BAY CITY)</div>
+        <!-- COLOANA 2: ESTRUCTURA LOCALĂ -->
+        <div class="column col-local">
+            <div class="column-header">Structură Locală & Distribuție (SSV13)</div>
 
-            <!-- APEX -->
-            <div class="row-center">
-                <div class="card card-apex" id="card-moran">
-                    <div class="badge badge-red">STATE LIAISON / APEX</div>
-                    <div class="img-container">
-                        <img src="https://www.upload.ee/image/18271271/Screenshot_2025-06-09_185712.png" alt="Dennis Moran">
-                        <span class="sys-tag">SYS.IMG.RGC</span>
-                    </div>
+            <div class="card" style="text-align: center;">
+                <span class="card-badge badge-red">Sole Operator / Transport Mare</span>
+                <img src="https://via.placeholder.com/110x125?text=FATIMA" alt="Fatima Atenas" class="avatar">
+                <div class="card-title">FATIMA ATENAS</div>
+                <div class="card-info" style="text-align: left;">
+                    Se ocupă deocamdată exclusiv de transportul mare de droguri și arme în oraș, spălarea banilor prin club și controlul stocurilor en-gros.
+                </div>
+            </div>
+
+            <div class="sub-grid">
+                <div class="card">
+                    <span class="card-badge badge-red">Șef de Stradă</span>
+                    <img src="https://via.placeholder.com/110x125?text=ISAIAH" alt="Isaiah Yepes" class="avatar">
+                    <div class="card-title">ISAIAH YEPES</div>
                     <div class="card-info">
-                        <div class="c-name">DENNIS MORAN</div>
-                        <div class="c-meta">AKA: Big Mo</div>
-                        <div class="c-desc">Running the Bay City Mob since 2016. Main operational pipeline into international channels.</div>
+                        Lider SSV13. Preluare loturi de arme/droguri de la Fatima și distribuție la bucată.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-badge badge-gray">Logistică Stradă</span>
+                    <img src="https://via.placeholder.com/110x125?text=UNKNOWN" alt="Unknown" class="avatar">
+                    <div class="card-title">[ NECUNOSCUT ]</div>
+                    <div class="card-info">
+                        Gestionare depozite locale și puncte de predare.
                     </div>
                 </div>
             </div>
 
-            <!-- MID LEVEL -->
-            <div class="row-mid">
-                <div class="card card-mid" id="card-connors">
-                    <div class="badge badge-magenta">STREET BOSS</div>
-                    <div class="img-container">
-                        <img src="https://www.upload.ee/image/19448150/Screenshot_2026-06-15_181827.png" alt="Brennan Connors">
-                        <span class="sys-tag">SYS.IMG.RGC</span>
-                    </div>
-                    <div class="card-info">
-                        <div class="c-name">BRENNAN CONNORS</div>
-                        <div class="c-desc">Leadership figure as of 2026.</div>
-                    </div>
+            <div class="card">
+                <span class="card-badge badge-gray">Membri & Rețea Rancho</span>
+                <div class="card-info">
+                    <b>MEMBRI SSV13 (STRADĂ):</b><br>
+                    • Soldați de Colț / Vânzare la bucată<br>
+                    • Curieri Locali<br><br>
+                    <b>ASOCIAȚI CLUB & LOGISTICĂ:</b><br>
+                    • Personal Pază Club<br>
+                    • Șoferi Transport Secundar
                 </div>
-
-                <div class="card card-mid" id="card-tulsa">
-                    <div class="badge badge-orange">ADVISOR</div>
-                    <div class="img-container">
-                        <span class="no-img-box">[ NO VISUAL DATA ]</span>
-                        <span class="sys-tag">SYS.IMG.RGC</span>
-                    </div>
-                    <div class="card-info">
-                        <div class="c-name">JOE TULSA</div>
-                        <div class="c-desc">General advisor to state-side leadership.</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- BOTTOM LEVEL -->
-            <div class="row-bottom">
-                
-                <!-- Sub-Col 1: LIEUTENANT (Travis Boyd) -->
-                <div class="sub-group">
-                    <div class="card card-sub" id="card-boyd">
-                        <div class="badge badge-green">LIEUTENANT</div>
-                        <div class="img-container">
-                            <span class="no-img-box">[ NO VISUAL DATA ]</span>
-                            <span class="sys-tag">SYS.IMG.RGC</span>
-                        </div>
-                        <div class="card-info">
-                            <div class="c-name">TRAVIS BOYD</div>
-                            <div class="c-desc">Running city operations as of 2026.</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Sub-Col 2: ACTING LT + LISTA BAY CITY CREW PE MIJLOC -->
-                <div class="sub-group">
-                    <div class="card card-sub" id="card-acting">
-                        <div class="badge badge-green">ACTING LT</div>
-                        <div class="img-container">
-                            <span class="no-img-box">[ NO VISUAL DATA ]</span>
-                            <span class="sys-tag">SYS.IMG.RGC</span>
-                        </div>
-                        <div class="card-info">
-                            <div class="c-name">[ UNASSIGNED ]</div>
-                            <div class="c-desc">Position currently unassigned.</div>
-                        </div>
-                    </div>
-
-                    <!-- CASUTA COMPLETA BAY CITY CREW PE MIJLOC -->
-                    <div class="crew-box crew-box-center" id="crew-bay-city">
-                        <div class="crew-head">BAY CITY CREW</div>
-                        
-                        <div class="crew-sub">KNOWN MEMBERS</div>
-                        <ul>
-                            <li>Michal 'Jackie' Murrily</li>
-                            <li>Harley 'Razer' Daley</li>
-                            <li>Oisin 'Gunna' McGeady</li>
-                        </ul>
-
-                        <div class="crew-sub">KNOWN ASSOCIATES</div>
-                        <ul>
-                            <li>Dixie Barnes</li>
-                            <li>Sean Muckley</li>
-                            <li>Anthony Cusack</li>
-                            <li>Brayden Donough</li>
-                            <li>Layton Coghlan</li>
-                            <li>Mitchell Mayes</li>
-                            <li>Bruce Gilroy</li>
-                            <li>Ian 'Dirty' Keogh</li>
-                            <li>Richard Gilroy</li>
-                            <li>Rian 'Playboy' Morris</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Sub-Col 3: ARCHIVED -->
-                <div class="sub-group">
-                    <div class="card card-sub card-greyed" id="card-archived">
-                        <div class="badge badge-grey">LIEUTENANT</div>
-                        <div class="img-container">
-                            <span style="font-size: 8px; color: #4b5563;">[ ARCHIVED ]</span>
-                        </div>
-                        <div class="card-info">
-                            <div class="c-name txt-dim">ANJAWON FULLER</div>
-                            <div class="c-desc txt-dim">Track archived / Suspended ops.</div>
-                        </div>
-                    </div>
-
-                    <div class="crew-box crew-greyed">
-                        <div class="crew-head txt-strike">BLACK CROWN</div>
-                        <div class="crew-sub">KNOWN MEMBERS</div>
-                        <ul>
-                            <li>Ryan Murphy</li>
-                            <li>Reshay Tyrone</li>
-                        </ul>
-                        <div class="crew-sub">KNOWN ASSOCIATES</div>
-                        <ul>
-                            <li>Kelvin Flatts</li>
-                        </ul>
-                    </div>
-                </div>
-
             </div>
         </div>
 
-        <!-- COLOANA 3: 03. BUSINESS FRONTS & 04. CASUALTY LOG -->
-        <div class="column col-right">
-            
-            <div class="sec-header">03. BUSINESS FRONTS</div>
+        <!-- COLOANA 3: BUSINESS FRONTS -->
+        <div class="column col-fronts">
+            <div class="column-header">Fațadă Legală & Depozite</div>
 
-            <div class="card card-front">
-                <div class="c-name">DONALEIGH'S PUB</div>
-                <div class="front-tag">BAY CITY CREW FRONT</div>
-                <div class="img-container front-img">
-                    <img src="https://www.upload.ee/image/19448264/Screenshot_2026-06-15_200111.png" alt="Pub">
+            <div class="card">
+                <span class="card-badge badge-gold">Rancho Nightclub</span>
+                <div class="card-title">FAȚADĂ PRINCIPALĂ</div>
+                <div class="card-info">
+                    Proprietate 100% Fatima Atenas. Punct principal de spălare a banilor din transporturile mari.
                 </div>
             </div>
 
-            <div class="card card-front">
-                <div class="c-name">AUNTIE P'S</div>
-                <div class="front-tag">IMPACT 51 FRONT</div>
-                <div class="img-container front-img">
-                    <img src="https://www.upload.ee/image/19448266/Screenshot_2026-06-15_200330.png" alt="Auntie P's">
+            <div class="card">
+                <span class="card-badge badge-gold">Garaje Conspirative</span>
+                <div class="card-title">LOCAȚII STASH</div>
+                <div class="card-info">
+                    Garaje neînregistrate folosite pentru descărcarea transporturilor mari de arme și droguri.
                 </div>
             </div>
 
-            <div class="card card-front">
-                <div class="c-name">PACIFIC COAST CONCRETE</div>
-                <div class="front-tag">NORTH COUNTY FRONT</div>
-                <div class="img-container front-img">
-                    <span class="no-img-box">[ PENDING ASSET ]</span>
+            <div class="card">
+                <span class="card-badge badge-gray">Note de Investigație</span>
+                <div class="card-info">
+                    <b>DOSAR #8942:</b> Subiectul (Fatima) nu poartă marfă asupra sa. Controlează doar transportul de anvergură și circuitul financar.
                 </div>
             </div>
-
-            <div class="card card-front card-greyed">
-                <div class="c-name txt-dim">BLACK CROWN FRONT</div>
-                <div class="front-tag">INACTIVE</div>
-            </div>
-
-            <div class="sec-header mt-15">04. CASUALTY LOG</div>
-
-            <div class="card log-yellow">
-                <div class="c-name txt-yellow">JAMES MCLEOD</div>
-                <div class="c-desc txt-yellow">CONFIDENTIAL INFORMANT</div>
-                <div class="c-sub txt-yellow">Active since 2025.</div>
-            </div>
-
-            <div class="card log-red">
-                <div class="c-name txt-red">JOEL LEVIN</div>
-                <div class="c-desc txt-red">DECEASED // 187 PC</div>
-                <div class="c-sub txt-sub">Case sealed. Found within local county lines.</div>
-            </div>
-
-            <div class="card log-red">
-                <div class="c-name txt-red">PATRICK QUINN</div>
-                <div class="c-desc txt-red">DECEASED // FIREFIGHT</div>
-                <div class="c-sub txt-sub">Killed in action during a shootout.</div>
-            </div>
-
         </div>
 
     </div>
 
-    <!-- SCRIPT CALCULATOR LINII SVG -->
-    <script>
-        function drawLines() {
-            const board = document.getElementById('board');
-            const boardRect = board.getBoundingClientRect();
+    <div class="footer-classification">
+        LAW ENFORCEMENT SENSITIVE // FOR OFFICIAL USE ONLY // DOSSIER #LAPD-2026-08942
+    </div>
 
-            function getPt(el, pos) {
-                const r = el.getBoundingClientRect();
-                if (pos === 'right') return { x: r.right - boardRect.left, y: r.top + r.height / 2 - boardRect.top };
-                if (pos === 'left') return { x: r.left - boardRect.left, y: r.top + r.height / 2 - boardRect.top };
-                if (pos === 'top') return { x: r.left + r.width / 2 - boardRect.left, y: r.top - boardRect.top };
-                if (pos === 'bottom') return { x: r.left + r.width / 2 - boardRect.left, y: r.bottom - boardRect.top };
-            }
-
-            // 1. Molloy -> Moran
-            const molloy = document.getElementById('card-molloy');
-            const moran = document.getElementById('card-moran');
-            if (molloy && moran) {
-                const p1 = getPt(molloy, 'right');
-                const p2 = getPt(moran, 'left');
-                const line1 = document.getElementById('line-molloy-moran');
-                line1.setAttribute('x1', p1.x); line1.setAttribute('y1', p1.y);
-                line1.setAttribute('x2', p2.x); line1.setAttribute('y2', p2.y);
-            }
-
-            // 2. Moran -> Connors
-            const connors = document.getElementById('card-connors');
-            if (moran && connors) {
-                const p1 = getPt(moran, 'bottom');
-                const p2 = getPt(connors, 'top');
-                const line2 = document.getElementById('line-moran-connors');
-                line2.setAttribute('x1', p1.x); line2.setAttribute('y1', p1.y);
-                line2.setAttribute('x2', p2.x); line2.setAttribute('y2', p2.y - 3);
-            }
-
-            // 3. Connors -> Tulsa
-            const tulsa = document.getElementById('card-tulsa');
-            if (connors && tulsa) {
-                const p1 = getPt(connors, 'right');
-                const p2 = getPt(tulsa, 'left');
-                const line3 = document.getElementById('line-connors-tulsa');
-                line3.setAttribute('x1', p1.x); line3.setAttribute('y1', p1.y);
-                line3.setAttribute('x2', p2.x); line3.setAttribute('y2', p2.y);
-            }
-
-            // 4. Ramificatie catre Lieutenanti
-            const boyd = document.getElementById('card-boyd');
-            const acting = document.getElementById('card-acting');
-            const archived = document.getElementById('card-archived');
-            if (connors && boyd && acting && archived) {
-                const pStart = getPt(connors, 'bottom');
-                const pBoyd = getPt(boyd, 'top');
-                const pActing = getPt(acting, 'top');
-                const pArchived = getPt(archived, 'top');
-                
-                const midY = pStart.y + 14;
-
-                const path = document.getElementById('path-branch');
-                const d = `
-                    M ${pStart.x} ${pStart.y}
-                    L ${pStart.x} ${midY}
-                    M ${pBoyd.x} ${midY} L ${pArchived.x} ${midY}
-                    M ${pBoyd.x} ${midY} L ${pBoyd.x} ${pBoyd.y}
-                    M ${pActing.x} ${midY} L ${pActing.x} ${pActing.y}
-                    M ${pArchived.x} ${midY} L ${pArchived.x} ${pArchived.y}
-                `;
-                path.setAttribute('d', d);
-            }
-
-            // 5. Linia de la Boyd (Lieutenant) la Lista Bay City Crew pe mijloc
-            const crew = document.getElementById('crew-bay-city');
-            if (boyd && crew) {
-                const pBoyd = getPt(boyd, 'bottom');
-                const pCrew = getPt(crew, 'top');
-                const midY = pBoyd.y + 10;
-
-                const pathBoydCrew = document.getElementById('path-boyd-crew');
-                const d = `
-                    M ${pBoyd.x} ${pBoyd.y}
-                    L ${pBoyd.x} ${midY}
-                    L ${pCrew.x} ${midY}
-                    L ${pCrew.x} ${pCrew.y}
-                `;
-                pathBoydCrew.setAttribute('d', d);
-            }
-        }
-
-        window.addEventListener('load', drawLines);
-        window.addEventListener('resize', drawLines);
-        setTimeout(drawLines, 300);
-    </script>
 </body>
 </html>
